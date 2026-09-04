@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zeyvio — AI Software Intelligence Company</title>
+<meta name="theme-color" content="#F5F6F4">
+<meta name="description" content="Zeyvio builds intelligent software systems that combine AI, data, automation and software engineering to help organizations operate smarter and move faster.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#F5F6F4;
+  --surface:#FFFFFF;
+  --surface-2:#FAFBF9;
+  --line:#E3E6E2;
+  --line-strong:#CFD4CE;
+  --fg:#15181A;
+  --fg-2:#3E464C;
+  --dim:#616C74;
+  --faint:#7C868C;
+  --accent:#B26A0B;
+  --accent-tint:rgba(178,106,11,.10);
+  --accent-line:rgba(178,106,11,.38);
+  --glow:rgba(242,169,59,.30);
+  --grid-line:rgba(0,0,0,.055);
+  --nav-bg:rgba(245,246,244,.84);
+  --btn-fg:#FFFFFF;
+  --code-base:rgba(21,24,26,.22);
+  --code-kw:rgba(178,106,11,.62);
+  --code-str:rgba(21,24,26,.34);
+  --code-com:rgba(21,24,26,.15);
+  --shadow:0 24px 60px -34px rgba(24,34,24,.16);
+  --sans:"Inter Tight","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --gut:clamp(20px,5vw,64px);
+  --maxw:1180px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+svg{display:block}
+::selection{background:var(--accent);color:var(--btn-fg)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding-inline:var(--gut)}
+.rule{height:1px;background:var(--line);border:0;margin:0}
+.eyebrow{font-family:var(--mono);font-size:12.5px;color:var(--accent)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:7px;font-weight:500;font-size:14.5px;padding:9px 16px;border:1px solid transparent;cursor:pointer;font-family:inherit;transition:background .16s ease,border-color .16s ease,color .16s ease}
+.btn-solid{background:var(--fg);color:var(--btn-fg)}
+.btn-solid:hover{background:var(--accent)}
+.btn-line{border-color:var(--line-strong);color:var(--fg-2);background:var(--surface)}
+.btn-line:hover{border-color:var(--accent);color:var(--accent)}
+.btn-lg{padding:12.5px 22px;font-size:15.5px}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:36px;height:62px}
+.mark{display:flex;align-items:center;gap:9px;font-weight:600;letter-spacing:-.02em;font-size:17px}
+.glyph{width:19px;height:19px;flex:0 0 auto}
+.nav-links{display:flex;gap:26px;font-size:14.5px;color:var(--dim)}
+.nav-links a:hover{color:var(--fg)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:18px;font-size:14.5px}
+.nav-right .plain{color:var(--dim)}
+.nav-right .plain:hover{color:var(--fg)}
+.nav-burger{display:none;margin-left:auto;background:var(--surface);border:1px solid var(--line-strong);border-radius:7px;color:var(--fg-2);padding:7px 11px;font:inherit;font-size:14px;cursor:pointer}
+
+/* hero */
+.hero{position:relative;padding-top:clamp(52px,7vw,96px);padding-bottom:clamp(48px,6vw,80px);overflow:hidden}
+.hero-bg{position:absolute;inset:0;pointer-events:none}
+.hero-bg .grid{position:absolute;inset:0;
+  background-image:linear-gradient(to right,var(--grid-line) 1px,transparent 1px),linear-gradient(to bottom,var(--grid-line) 1px,transparent 1px);
+  background-size:74px 74px;
+  mask-image:radial-gradient(112% 80% at 50% 2%,#000 10%,transparent 74%);
+  -webkit-mask-image:radial-gradient(112% 80% at 50% 2%,#000 10%,transparent 74%)}
+.hero-bg .glow{position:absolute;left:50%;top:-10%;width:min(1020px,124vw);height:540px;transform:translateX(-50%);background:radial-gradient(50% 50% at 50% 50%,var(--glow),transparent 70%)}
+/* running code layer */
+.codebg{position:absolute;inset:0;overflow:hidden;display:flex;gap:clamp(28px,5vw,64px);justify-content:center;
+  mask-image:radial-gradient(82% 78% at 74% 24%,#000 8%,transparent 72%);
+  -webkit-mask-image:radial-gradient(82% 78% at 74% 24%,#000 8%,transparent 72%)}
+.codecol{flex:0 0 auto;will-change:transform;animation:codeup linear infinite}
+.codecol pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:2.05;color:var(--code-base);white-space:pre}
+.codecol .kw{color:var(--code-kw)}
+.codecol .st{color:var(--code-str)}
+.codecol .cm{color:var(--code-com)}
+@keyframes codeup{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+
+/* hero split */
+.hero-two{position:relative;display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(24px,4vw,56px);align-items:center}
+.hero-in{position:relative;max-width:none}
+
+/* robot */
+.robot-wrap{position:relative;display:flex;justify-content:center}
+#robot3d{width:100%;max-width:350px;aspect-ratio:1/1.25;cursor:grab;touch-action:pan-y}
+#robot3d.dragging{cursor:grabbing}
+#robot3d canvas{display:block;width:100%;height:100%}
+.robot-wrap.is3d .robot{display:none}
+.hint3d{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11.5px;color:var(--faint);opacity:0;transition:opacity .5s ease;pointer-events:none;white-space:nowrap}
+.robot-wrap.is3d .hint3d{opacity:1}
+.robot{width:100%;max-width:320px;height:auto}
+.robot .ink{stroke:var(--fg);stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round;fill:none}
+.robot .hair{stroke:var(--line-strong);stroke-width:1.8;fill:none}
+.robot .body-fill{fill:var(--surface)}
+.robot .panel-fill{fill:var(--line)}
+.robot .solid{fill:var(--fg)}
+.robot #r-float,.robot #r-head,.robot #r-pupils,.robot #r-eyewrap,.robot .arm,.robot .tip,.robot .pulse,.robot #r-shadow{transform-box:fill-box}
+
+/* idle: the robot hovers, arms sway, antenna and chest light breathe */
+.robot #r-float{transform-origin:50% 100%;animation:hover 5.2s ease-in-out infinite}
+@keyframes hover{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.robot #r-shadow{transform-origin:50% 50%;animation:shadowbreathe 5.2s ease-in-out infinite}
+@keyframes shadowbreathe{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.9);opacity:.6}}
+.robot .arm-l{transform-origin:50% 6%;animation:swayl 4.4s ease-in-out infinite}
+.robot .arm-r{transform-origin:50% 6%;animation:swayr 4.4s ease-in-out infinite}
+@keyframes swayl{0%,100%{transform:rotate(0deg)}50%{transform:rotate(5deg)}}
+@keyframes swayr{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-5deg)}}
+.robot .tip{transform-origin:50% 50%;animation:tipbeat 2.6s ease-in-out infinite}
+@keyframes tipbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+.robot .pulse{transform-origin:50% 50%;animation:tipbeat 2.6s ease-in-out infinite}
+.robot #r-eyewrap{transform-origin:50% 50%;animation:blink 6.2s ease-in-out infinite}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+/* head and pupils are driven by script, so they carry no CSS animation */
+.robot #r-head,.robot #r-pupils{transition:none}
+.hero .lead-line{font-size:clamp(15px,2.1vw,21px);letter-spacing:.005em;font-weight:500;line-height:1.35}
+.hero h1{margin-top:18px;font-size:clamp(38px,6.2vw,70px);line-height:1.04;letter-spacing:-.038em;font-weight:600;max-width:17ch}
+.hero .lede{margin-top:24px;font-size:clamp(16.5px,1.9vw,19.5px);line-height:1.62;color:var(--dim);max-width:60ch}
+.hero .lede b{color:var(--fg-2);font-weight:500}
+.hero .lede+.lede{margin-top:14px}
+.hero-cta{margin-top:34px;display:flex;flex-wrap:wrap;gap:12px}
+
+/* the loop */
+.loop{position:relative;margin-top:clamp(48px,6vw,76px);border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);box-shadow:var(--shadow);padding:clamp(22px,3vw,34px) clamp(18px,3vw,34px)}
+.loop-h{display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between;margin-bottom:clamp(24px,3vw,32px)}
+.loop-h .say{font-size:15px;color:var(--dim);max-width:56ch}
+.loop-h .say b{color:var(--fg);font-weight:600}
+.loop-track{display:grid;grid-template-columns:repeat(5,1fr);position:relative}
+.loop-track:before{content:"";position:absolute;left:10%;right:10%;top:11px;height:1px;background:var(--line-strong)}
+.loop-track:after{content:"";position:absolute;left:10%;top:11px;height:1px;width:0;background:var(--accent);transition:width 1.5s cubic-bezier(.4,0,.2,1)}
+.loop-track.lit:after{width:80%}
+.node{position:relative;text-align:center;padding:0 6px}
+.node .pip{width:23px;height:23px;margin:0 auto;border-radius:50%;background:var(--surface);border:1px solid var(--line-strong);display:grid;place-items:center;position:relative;z-index:1;transition:border-color .3s ease,background .3s ease}
+.node .pip i{width:7px;height:7px;border-radius:50%;background:var(--line-strong);display:block;transition:background .3s ease}
+.node.on .pip{border-color:var(--accent-line);background:var(--accent-tint)}
+.node.on .pip i{background:var(--accent)}
+.node h3{margin-top:14px;font-size:clamp(15px,1.9vw,20px);font-weight:600;letter-spacing:-.02em}
+.node p{margin-top:6px;font-size:13.5px;color:var(--faint);line-height:1.5}
+
+/* equation strip */
+.eq{padding:clamp(30px,4vw,44px) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface-2)}
+.eq-in{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.eq-in span{font-size:clamp(15px,2.1vw,20px);font-weight:500;letter-spacing:-.02em}
+.eq-in em{font-style:normal;color:var(--accent);font-family:var(--mono);font-size:15px}
+.eq-note{margin-top:18px;font-size:14.5px;color:var(--dim);max-width:70ch;line-height:1.64}
+
+/* section shell */
+.sec{padding:clamp(62px,8vw,108px) 0}
+.sec-head{max-width:680px}
+.sec-head h2{margin-top:14px;font-size:clamp(27px,4vw,43px);line-height:1.1;letter-spacing:-.03em;font-weight:600}
+.sec-head p{margin-top:16px;color:var(--dim);font-size:17px;line-height:1.65;max-width:56ch}
+
+/* traditional vs intelligent */
+.vs{margin-top:clamp(38px,5vw,56px);display:grid;grid-template-columns:1fr 1.35fr;gap:14px}
+.vs-card{border:1px solid var(--line);border-radius:12px;padding:clamp(22px,2.6vw,30px);background:var(--surface-2)}
+.vs-card.now{background:var(--surface);border-color:var(--accent-line);box-shadow:var(--shadow)}
+.vs-card h3{font-size:14.5px;font-family:var(--mono);font-weight:400;color:var(--faint)}
+.vs-card.now h3{color:var(--accent)}
+.vs-card .claim{margin-top:16px;font-size:clamp(18px,2.3vw,25px);line-height:1.32;letter-spacing:-.025em;color:var(--fg-2)}
+.vs-card.now .claim{color:var(--fg)}
+.vs-card ul{margin-top:20px;display:flex;flex-wrap:wrap;gap:7px}
+.vs-card li{font-size:13.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:5px 10px;background:var(--surface)}
+.vs-card.now li{border-color:var(--accent-line);color:var(--accent);background:var(--accent-tint)}
+
+/* pillars 01–10 */
+.pillars{margin-top:clamp(38px,5vw,56px);border-top:1px solid var(--line)}
+.pillar{display:grid;grid-template-columns:56px 1.15fr 1.1fr;gap:clamp(16px,3vw,40px);padding:clamp(26px,3.4vw,40px) 0;border-bottom:1px solid var(--line)}
+.pillar .no{font-family:var(--mono);font-size:13px;color:var(--accent);padding-top:7px}
+.pillar h3{font-size:clamp(21px,2.7vw,29px);line-height:1.18;letter-spacing:-.028em;font-weight:600}
+.pillar .tag{margin-top:10px;font-size:15.5px;color:var(--accent);font-weight:500}
+.pillar .body p{margin-top:12px;font-size:15.5px;color:var(--dim);line-height:1.62;max-width:46ch}
+.pillar .caps{align-self:start;display:flex;flex-wrap:wrap;gap:7px;padding-top:8px}
+.pillar .caps li{font-size:13.5px;color:var(--fg-2);border:1px solid var(--line);border-radius:6px;padding:6px 11px;background:var(--surface)}
+.flowline{margin-top:18px;display:flex;flex-wrap:wrap;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+.flowline s{text-decoration:none;color:var(--accent)}
+
+/* industries */
+.inds{margin-top:clamp(38px,5vw,56px);display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.ind{background:var(--surface);padding:clamp(22px,2.6vw,30px);display:flex;flex-direction:column}
+.ind h3{font-size:19.5px;font-weight:600;letter-spacing:-.022em}
+.ind p{margin-top:10px;font-size:14.8px;color:var(--dim);line-height:1.6}
+.ind .tags{margin-top:auto;padding-top:22px;font-size:13px;color:var(--faint);font-family:var(--mono);line-height:1.7}
+
+/* advantage */
+.adv{margin-top:clamp(38px,5vw,56px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,44px)}
+.adv-item{padding-left:22px;border-left:2px solid var(--accent-line)}
+.adv-item h3{font-size:19.5px;font-weight:600;letter-spacing:-.022em}
+.adv-item p{margin-top:10px;font-size:15.5px;color:var(--dim);line-height:1.64;max-width:48ch}
+.adv-item .pins{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+.adv-item .pins li{font-size:13px;font-family:var(--mono);color:var(--fg-2);border:1px solid var(--line);border-radius:5px;padding:4px 9px;background:var(--surface)}
+
+/* approach */
+.path{margin-top:clamp(38px,5vw,56px);display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.phase{background:var(--surface);padding:clamp(20px,2.2vw,26px) clamp(16px,1.8vw,22px)}
+.phase .k{font-family:var(--mono);font-size:12px;color:var(--accent)}
+.phase h3{margin-top:12px;font-size:17px;font-weight:600;letter-spacing:-.02em}
+.phase p{margin-top:8px;font-size:14px;color:var(--dim);line-height:1.55}
+
+/* idea to product */
+.jour{margin-top:clamp(46px,6vw,72px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,4vw,56px);align-items:start}
+.stages{margin-top:28px;display:flex;flex-direction:column}
+.stage{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:18px 0;border-top:1px solid var(--line)}
+.stage:first-child{border-top:0;padding-top:0}
+.stage .b{font-family:var(--mono);font-size:12.5px;color:var(--accent);padding-top:4px}
+.stage h3{font-size:17.5px;font-weight:600;letter-spacing:-.02em}
+.stage p{margin-top:6px;font-size:14.8px;color:var(--dim);line-height:1.58}
+.firstpanel{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:clamp(22px,2.6vw,30px);box-shadow:var(--shadow)}
+.firstpanel h3{font-size:21px;font-weight:600;letter-spacing:-.024em;line-height:1.2}
+.firstpanel p{margin-top:12px;font-size:15px;color:var(--dim);line-height:1.62}
+.firstpanel .formula{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.firstpanel .formula li{font-size:14px;font-weight:500;border:1px solid var(--accent-line);color:var(--accent);background:var(--accent-tint);border-radius:6px;padding:6px 11px}
+
+/* trust */
+.trust{background:var(--surface-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.trust-in{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(26px,4vw,60px);align-items:start;padding:clamp(56px,7vw,92px) 0}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.ctl{background:var(--surface);padding:15px 16px;font-size:14.5px;color:var(--fg-2);display:flex;gap:10px;align-items:center}
+.ctl svg{flex:0 0 auto}
+
+/* outcomes */
+.outs{margin-top:clamp(38px,5vw,56px);display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.4vw,30px)}
+.out{border-top:1px solid var(--line-strong);padding-top:20px}
+.out .dir{font-size:22px;line-height:1;color:var(--accent);font-weight:600}
+.out h3{margin-top:12px;font-size:18px;font-weight:600;letter-spacing:-.02em}
+.out p{margin-top:8px;font-size:14.8px;color:var(--dim);line-height:1.58}
+
+/* why now */
+.why{padding:clamp(62px,8vw,104px) 0}
+.why-in{max-width:820px}
+.why .big{font-size:clamp(19px,2.6vw,28px);line-height:1.34;letter-spacing:-.026em;color:var(--fg-2)}
+.why .big+.big{margin-top:14px}
+.why .big.last{color:var(--fg);font-weight:500}
+
+/* closing */
+.close{position:relative;overflow:hidden;border-top:1px solid var(--line);padding:clamp(72px,9vw,124px) 0;text-align:center}
+.close .glow2{position:absolute;left:50%;bottom:-56%;width:min(900px,124vw);height:620px;transform:translateX(-50%);background:radial-gradient(50% 50% at 50% 50%,var(--glow),transparent 68%);pointer-events:none}
+.close-in{position:relative}
+.close .three{display:flex;flex-wrap:wrap;gap:8px 26px;justify-content:center;font-size:clamp(15px,2vw,18px);color:var(--dim);margin-bottom:22px}
+.close h2{font-size:clamp(29px,4.8vw,50px);line-height:1.08;letter-spacing:-.034em;font-weight:600;max-width:22ch;margin-inline:auto}
+.close .sub{margin-top:18px;color:var(--dim);font-size:17px;max-width:50ch;margin-inline:auto}
+.close .row{margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:clamp(44px,5vw,64px) 0 40px}
+.f-top{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:32px}
+.f-brand .tagline{margin-top:14px;font-size:15px;color:var(--fg-2);font-weight:500}
+.f-brand .sub{margin-top:6px;font-size:13px;color:var(--faint);font-family:var(--mono)}
+.f-col h4{font-size:13.5px;font-weight:500;color:var(--fg-2);margin:0 0 12px}
+.f-col a{display:block;font-size:14px;color:var(--faint);padding:4.5px 0}
+.f-col a:hover{color:var(--fg-2)}
+.f-bot{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:13.5px;color:var(--faint)}
+.f-bot .right{margin-left:auto;display:flex;gap:20px}
+
+/* responsive */
+@media (max-width:1000px){
+  .nav-links,.nav-right{display:none}
+  .nav-burger{display:block}
+  .node p{display:none}
+  .vs{grid-template-columns:1fr}
+  .pillar{grid-template-columns:44px 1fr;gap:14px}
+  .pillar .caps{grid-column:2;padding-top:16px}
+  .inds{grid-template-columns:1fr 1fr}
+  .adv{grid-template-columns:1fr}
+  .path{grid-template-columns:repeat(3,1fr)}
+  .jour,.trust-in{grid-template-columns:1fr}
+  .outs{grid-template-columns:1fr 1fr}
+  .f-top{grid-template-columns:1fr 1fr}
+}
+@media (max-width:860px){
+  .hero-two{grid-template-columns:1fr;gap:36px}
+  .robot-wrap{order:-1}
+  .robot{max-width:210px}
+  #robot3d{max-width:250px}
+  .codebg{gap:26px;mask-image:radial-gradient(90% 60% at 50% 12%,#000 6%,transparent 74%);-webkit-mask-image:radial-gradient(90% 60% at 50% 12%,#000 6%,transparent 74%)}
+  .codecol pre{opacity:.62}
+}
+@media (max-width:640px){
+  .robot{max-width:170px}
+  #robot3d{max-width:210px}
+  .loop-track{grid-template-columns:1fr;gap:14px}
+  .loop-track:before,.loop-track:after{display:none}
+  .node{display:grid;grid-template-columns:auto 1fr;gap:12px;text-align:left;align-items:center;padding:0}
+  .node h3{margin-top:0}
+  .inds{grid-template-columns:1fr}
+  .path{grid-template-columns:1fr}
+  .outs{grid-template-columns:1fr}
+  .controls{grid-template-columns:1fr}
+  .f-top{grid-template-columns:1fr}
+  .f-bot .right{margin-left:0;width:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition-duration:.001ms !important;animation-duration:.001ms !important}
+  .loop-track:after{width:80%}
+  .codecol{animation:none}
+  .robot #r-float,.robot #r-shadow,.robot .arm,.robot .tip,.robot .pulse,.robot #r-eyewrap{animation:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-in">
+    <a class="mark" href="#top">
+      <svg class="glyph" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 3h14L7 10h10L3 17l10-7H3z" fill="var(--accent)"/></svg>
+      Zeyvio
+    </a>
+    <div class="nav-links">
+      <a href="#ecosystem">Solutions</a>
+      <a href="#industries">Industries</a>
+      <a href="#approach">Approach</a>
+      <a href="#outcomes">Outcomes</a>
+      <a href="#trust">Responsible AI</a>
+    </div>
+    <div class="nav-right">
+      <a class="plain" href="#build">Start a project</a>
+      <a class="btn btn-solid" href="#build">Talk to Zeyvio</a>
+    </div>
+    <button class="nav-burger" aria-label="Open menu">Menu</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="codebg" id="codebg"></div>
+    <div class="grid"></div>
+    <div class="glow"></div>
+  </div>
+  <div class="wrap">
+   <div class="hero-two">
+    <div class="hero-in">
+      <p class="eyebrow lead-line">AI Software Intelligence Company</p>
+      <h1>Software that thinks. Intelligence that works.</h1>
+      <p class="lede">Zeyvio builds intelligent software systems that combine <b>artificial intelligence, data, automation and software engineering</b> to help organizations operate smarter, move faster and create new possibilities.</p>
+      <p class="lede">We turn complex business challenges into AI-powered applications, intelligent agents, automation platforms and enterprise software built for the next generation of business.</p>
+      <div class="hero-cta">
+        <a class="btn btn-solid btn-lg" href="#build">Build with Zeyvio</a>
+        <a class="btn btn-line btn-lg" href="#ecosystem">Explore solutions</a>
+      </div>
+    </div>
+
+    <div class="robot-wrap">
+      <div id="robot3d" role="img" aria-label="Animated 3D robot you can rotate by dragging"></div>
+      <span class="hint3d">drag to rotate</span>
+      <svg class="robot" viewBox="0 0 300 400" role="img" aria-label="Illustration of a robot that follows the pointer">
+        <!-- ground -->
+        <ellipse id="r-shadow" cx="150" cy="380" rx="84" ry="8" fill="var(--line)"/>
+
+        <g id="r-float">
+          <!-- arms sway from the shoulder -->
+          <g class="arm arm-l">
+            <rect class="ink body-fill" x="46" y="200" width="26" height="86" rx="13"/>
+            <path class="hair" d="M50 243h18"/>
+          </g>
+          <g class="arm arm-r">
+            <rect class="ink body-fill" x="228" y="200" width="26" height="86" rx="13"/>
+            <path class="hair" d="M232 243h18"/>
+          </g>
+
+          <!-- legs -->
+          <rect class="ink body-fill" x="104" y="322" width="30" height="46" rx="11"/>
+          <rect class="ink body-fill" x="166" y="322" width="30" height="46" rx="11"/>
+
+          <!-- torso -->
+          <rect class="ink body-fill" x="82" y="190" width="136" height="132" rx="22"/>
+          <rect class="ink panel-fill" x="106" y="212" width="88" height="58" rx="10"/>
+          <path class="hair" d="M120 228h60M120 241h44M120 254h52"/>
+          <circle class="hair" cx="150" cy="294" r="17"/>
+          <circle class="solid pulse" cx="150" cy="294" r="9"/>
+
+          <!-- neck -->
+          <path class="ink" d="M132 176v16M168 176v16"/>
+
+          <g id="r-head">
+            <!-- antenna -->
+            <path class="ink" d="M150 62V34"/>
+            <circle class="ink body-fill tip" cx="150" cy="26" r="8"/>
+
+            <!-- ears -->
+            <rect class="ink body-fill" x="60" y="98" width="16" height="40" rx="7"/>
+            <rect class="ink body-fill" x="224" y="98" width="16" height="40" rx="7"/>
+
+            <!-- head shell + visor -->
+            <rect class="ink body-fill" x="76" y="62" width="148" height="112" rx="26"/>
+            <rect class="ink panel-fill" x="94" y="84" width="112" height="60" rx="18"/>
+
+            <!-- eyes: sockets blink, pupils track the pointer -->
+            <g id="r-eyewrap">
+              <circle class="ink body-fill" cx="126" cy="114" r="13"/>
+              <circle class="ink body-fill" cx="174" cy="114" r="13"/>
+              <g id="r-pupils">
+                <circle class="solid" cx="126" cy="114" r="6"/>
+                <circle class="solid" cx="174" cy="114" r="6"/>
+              </g>
+            </g>
+            <path class="hair" d="M112 156h76"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+   </div>
+
+    <section class="loop" aria-label="How intelligent software works">
+      <div class="loop-h">
+        <p class="say"><b>Traditional software follows instructions.</b> Intelligent software understands context, learns from data, supports decisions and can take action.</p>
+        <p class="eyebrow">The Zeyvio loop</p>
+      </div>
+      <div class="loop-track" id="loop">
+        <div class="node"><span class="pip"><i></i></span><h3>Understand</h3><p>Context, documents, systems and intent</p></div>
+        <div class="node"><span class="pip"><i></i></span><h3>Reason</h3><p>Evaluate information across multiple steps</p></div>
+        <div class="node"><span class="pip"><i></i></span><h3>Act</h3><p>Execute tasks in real business systems</p></div>
+        <div class="node"><span class="pip"><i></i></span><h3>Learn</h3><p>Improve from outcomes and feedback</p></div>
+        <div class="node"><span class="pip"><i></i></span><h3>Scale</h3><p>Extend across teams and operations</p></div>
+      </div>
+    </section>
+  </div>
+</header>
+
+<section class="eq">
+  <div class="wrap">
+    <div class="eq-in">
+      <span>Artificial Intelligence</span><em>+</em>
+      <span>Software Engineering</span><em>+</em>
+      <span>Data Intelligence</span><em>+</em>
+      <span>Automation</span><em>+</em>
+      <span>Cloud</span>
+    </div>
+    <p class="eq-note">Zeyvio is an AI software intelligence company building intelligent digital products and enterprise software. From a single AI-powered application to an enterprise-wide intelligence platform, we help organizations move from traditional software to AI-first operations.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The shift</p>
+      <h2>The future of software is intelligent.</h2>
+      <p>We create AI-native systems that connect people, data, applications, workflows and intelligence into one connected ecosystem.</p>
+    </div>
+    <div class="vs">
+      <article class="vs-card">
+        <h3>Traditional software</h3>
+        <p class="claim">Follows the instructions it was given.</p>
+        <ul><li>Fixed rules</li><li>Manual decisions</li><li>Static workflows</li><li>Data sits unused</li></ul>
+      </article>
+      <article class="vs-card now">
+        <h3>Intelligent software</h3>
+        <p class="claim">Understands context, learns from data, supports decisions and takes action.</p>
+        <ul><li>Understands intent</li><li>Reasons across steps</li><li>Acts in your systems</li><li>Improves over time</li><li>Keeps humans in control</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="ecosystem" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Our AI software ecosystem</p>
+      <h2>Ten capabilities, one intelligence layer.</h2>
+      <p>Each one can stand alone as a project, or combine into an enterprise-wide platform.</p>
+    </div>
+
+    <div class="pillars">
+      <article class="pillar">
+        <div class="no">01</div>
+        <div class="body">
+          <h3>AI Applications</h3>
+          <div class="tag">AI as a core capability, not an add-on</div>
+          <p>Intelligent applications designed around a specific business need — from internal copilots to customer-facing products.</p>
+        </div>
+        <ul class="caps">
+          <li>Web applications</li><li>Mobile applications</li><li>Enterprise copilots</li><li>Intelligent dashboards</li><li>AI search</li><li>Knowledge assistants</li><li>Recommendation systems</li><li>Decision support</li>
+        </ul>
+      </article>
+
+      <article class="pillar">
+        <div class="no">02</div>
+        <div class="body">
+          <h3>AI Agents</h3>
+          <div class="tag">Software that can think, reason and act</div>
+          <p>Agents understand objectives, evaluate information, interact with systems and execute tasks alongside your people.</p>
+        </div>
+        <ul class="caps">
+          <li>Task execution</li><li>Workflow automation</li><li>Enterprise system interaction</li><li>Data retrieval</li><li>Multi-step reasoning</li><li>Human-in-the-loop</li><li>Multi-agent orchestration</li>
+        </ul>
+      </article>
+
+      <article class="pillar">
+        <div class="no">03</div>
+        <div class="body">
+          <h3>Enterprise AI</h3>
+          <div class="tag">Bring intelligence into your enterprise</div>
+          <p>Your data is spread across applications, documents, databases and business systems. Zeyvio connects that information to AI so people can find it, understand it and act on it.</p>
+        </div>
+        <ul class="caps">
+          <li>AI knowledge platforms</li><li>Enterprise search</li><li>RAG applications</li><li>AI copilots</li><li>Knowledge management</li><li>Intelligent document processing</li>
+        </ul>
+      </article>
+
+      <article class="pillar">
+        <div class="no">04</div>
+        <div class="body">
+          <h3>Data Intelligence</h3>
+          <div class="tag">Turn data into business intelligence</div>
+          <p>Data is valuable only when you can understand and act on it. We combine data engineering and AI to connect sources, surface patterns and predict outcomes.</p>
+          <div class="flowline">Data <s>&rarr;</s> Intelligence <s>&rarr;</s> Decisions <s>&rarr;</s> Actions</div>
+        </div>
+        <ul class="caps">
+          <li>Connect sources</li><li>Understand complex information</li><li>Discover patterns</li><li>Predict outcomes</li><li>Recommend actions</li>
+        </ul>
+      </article>
+
+      <article class="pillar">
+        <div class="no">05</div>
+        <div class="body">
+          <h3>Intelligent Automation</h3>
+          <div class="tag">Automate more than tasks</div>
+          <p>Rule-based automation stops where judgement begins. Intelligent automation handles processes that need understanding, reasoning and decision-making.</p>
+        </div>
+        <ul class="caps">
+          <li>Document processing</li><li>Customer support</li><li>Reporting</li><li>Approvals</li><li>Compliance workflows</li><li>Recruiting</li><li>Finance operations</li><li>Healthcare operations</li><li>IT operations</li><li>Customer onboarding</li>
+        </ul>
+      </article>
+
+      <article class="pillar">
+        <div class="no">06</div>
+        <div class="body">
+          <h3>AI Software Engineering</h3>
+          <div class="tag">More than connecting an API to an app</div>
+          <p>Experienced software engineering and AI expertise, together, to build secure, scalable, production-ready systems.</p>
+        </div>
+        <ul class="caps">
+          <li>Full-stack development</li><li>AI/ML engineering</li><li>LLM applications</li><li>API development</li><li>Microservices</li><li>Cloud engineering</li><li>Data engineering</li><li>DevOps &amp; MLOps</li><li>Application modernization</li><li>System integration</li>
+        </ul>
+      </article>
+
+      <article class="pillar">
+        <div class="no">07</div>
+        <div class="body">
+          <h3>AI Integration</h3>
+          <div class="tag">Intelligence inside the tools you already run</div>
+          <p>Your business doesn't need another disconnected system. We create an intelligent layer across your existing technology ecosystem.</p>
+        </div>
+        <ul class="caps">
+          <li>CRM</li><li>ERP</li><li>HR systems</li><li>Databases</li><li>Cloud platforms</li><li>Data warehouses</li><li>APIs</li><li>Business applications</li>
+        </ul>
+      </article>
+
+      <article class="pillar">
+        <div class="no">08</div>
+        <div class="body">
+          <h3>Generative AI</h3>
+          <div class="tag">From conversations to capabilities</div>
+          <p>Production-ready generative AI, built from the right combination of models, data, retrieval, orchestration and application engineering.</p>
+        </div>
+        <ul class="caps">
+          <li>AI assistants</li><li>Enterprise copilots</li><li>Document AI</li><li>Content intelligence</li><li>Conversational AI</li><li>Generative analytics</li><li>Custom LLM applications</li>
+        </ul>
+      </article>
+
+      <article class="pillar">
+        <div class="no">09</div>
+        <div class="body">
+          <h3>Voice &amp; Conversational AI</h3>
+          <div class="tag">Make software more human</div>
+          <p>Voice and chat experiences that understand the user, retrieve real information and complete the task.</p>
+        </div>
+        <ul class="caps">
+          <li>AI customer support</li><li>Voice assistants</li><li>Appointment management</li><li>Sales assistants</li><li>Employee assistants</li><li>Healthcare assistants</li><li>Service automation</li>
+        </ul>
+      </article>
+
+      <article class="pillar">
+        <div class="no">10</div>
+        <div class="body">
+          <h3>Computer Vision</h3>
+          <div class="tag">Give software the ability to see</div>
+          <p>Understand images, video and visual information — on the production line, in the field or across documents.</p>
+        </div>
+        <ul class="caps">
+          <li>Visual inspection</li><li>Quality control</li><li>Object detection</li><li>Document understanding</li><li>Safety monitoring</li><li>Image analysis</li><li>Industrial automation</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="industries" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Industries we transform</p>
+      <h2>Where we put intelligence to work.</h2>
+    </div>
+    <div class="inds">
+      <article class="ind">
+        <h3>Healthcare</h3>
+        <p>Intelligent healthcare software that improves operational efficiency, patient engagement and access to information.</p>
+        <div class="tags">AI assistants · Telehealth · Document intelligence · Patient engagement</div>
+      </article>
+      <article class="ind">
+        <h3>Financial Services</h3>
+        <p>AI for financial operations, risk analysis, customer experience and better-evidenced decisions.</p>
+        <div class="tags">Fraud intelligence · Document AI · Customer intelligence · Analytics</div>
+      </article>
+      <article class="ind">
+        <h3>Manufacturing</h3>
+        <p>Intelligence across operations, quality, maintenance and supply chain.</p>
+        <div class="tags">Computer vision · Predictive intelligence · Quality automation · Industrial AI</div>
+      </article>
+      <article class="ind">
+        <h3>Retail &amp; E-Commerce</h3>
+        <p>Personalized, intelligent customer experiences from first visit to repeat purchase.</p>
+        <div class="tags">Recommendation engines · Customer intelligence · AI support · Demand intelligence</div>
+      </article>
+      <article class="ind">
+        <h3>Technology</h3>
+        <p>Help technology organizations accelerate development and ship AI-native products.</p>
+        <div class="tags">AI engineering · Developer copilots · Cloud · Data intelligence</div>
+      </article>
+      <article class="ind">
+        <h3>Professional Services</h3>
+        <p>Automate knowledge-intensive processes and give experts their time back.</p>
+        <div class="tags">Knowledge AI · Document intelligence · Research automation · AI assistants</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The Zeyvio advantage</p>
+      <h2>Why organizations build with us.</h2>
+    </div>
+    <div class="adv">
+      <article class="adv-item">
+        <h3>AI-first thinking</h3>
+        <p>We don't simply add AI to existing software. We rethink how software should work when intelligence becomes part of the product.</p>
+      </article>
+      <article class="adv-item">
+        <h3>Business-first engineering</h3>
+        <p>Technology is only valuable when it solves a real business problem. We focus on measurable outcomes — productivity, efficiency, revenue, customer experience and operational performance.</p>
+      </article>
+      <article class="adv-item">
+        <h3>Enterprise ready</h3>
+        <p>Designed from the start for the requirements your reviewers will ask about.</p>
+        <ul class="pins"><li>Security</li><li>Scalability</li><li>Reliability</li><li>Governance</li><li>Integration</li><li>Performance</li></ul>
+      </article>
+      <article class="adv-item">
+        <h3>Human + AI</h3>
+        <p>The future is not humans versus AI. It is humans working with intelligent software. We build systems that augment human expertise while keeping appropriate human control.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="approach" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Our approach</p>
+      <h2>Six phases from first conversation to production scale.</h2>
+    </div>
+    <div class="path">
+      <article class="phase"><div class="k">Phase 1</div><h3>Discover</h3><p>Understand your business, data, workflows and objectives.</p></article>
+      <article class="phase"><div class="k">Phase 2</div><h3>Design</h3><p>Define the AI strategy, architecture, technology and user experience.</p></article>
+      <article class="phase"><div class="k">Phase 3</div><h3>Build</h3><p>Engineer the application, models, agents, integrations and workflows.</p></article>
+      <article class="phase"><div class="k">Phase 4</div><h3>Integrate</h3><p>Connect intelligence with your existing systems and enterprise data.</p></article>
+      <article class="phase"><div class="k">Phase 5</div><h3>Deploy</h3><p>Move from prototype to secure production.</p></article>
+      <article class="phase"><div class="k">Phase 6</div><h3>Scale</h3><p>Continuously improve and expand AI across the organization.</p></article>
+    </div>
+
+    <div class="jour">
+      <div>
+        <div class="sec-head" style="max-width:none">
+          <p class="eyebrow">From idea to intelligent product</p>
+          <h2 style="font-size:clamp(23px,3.1vw,32px)">Have an AI idea? We'll take it to production.</h2>
+        </div>
+        <div class="stages">
+          <article class="stage"><div class="b">01</div><div><h3>Concept</h3><p>Turn the idea into a clear AI product vision.</p></div></article>
+          <article class="stage"><div class="b">02</div><div><h3>Prototype</h3><p>Validate the experience and the technology quickly.</p></div></article>
+          <article class="stage"><div class="b">03</div><div><h3>MVP</h3><p>Build the first production-ready version.</p></div></article>
+          <article class="stage"><div class="b">04</div><div><h3>Scale</h3><p>Expand capabilities, users, integrations and intelligence.</p></div></article>
+        </div>
+      </div>
+      <aside class="firstpanel">
+        <h3>Build your AI-first organization</h3>
+        <p>AI transformation is not just about adopting a model. It takes the right combination of foundations, and Zeyvio helps you put them in place.</p>
+        <ul class="formula"><li>People</li><li>Process</li><li>Data</li><li>Technology</li><li>Intelligence</li></ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="trust" id="trust">
+  <div class="wrap trust-in">
+    <div class="sec-head">
+      <p class="eyebrow">Security &amp; responsible AI</p>
+      <h2>Intelligence you can trust.</h2>
+      <p>Enterprise AI must be secure, governed and accountable. Zeyvio designs the controls in from the first architecture review, not after the pilot.</p>
+    </div>
+    <div class="controls">
+      <div class="ctl"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 7l3.2 3L11 3" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Data privacy</div>
+      <div class="ctl"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 7l3.2 3L11 3" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Access control</div>
+      <div class="ctl"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 7l3.2 3L11 3" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Authentication</div>
+      <div class="ctl"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 7l3.2 3L11 3" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Data security</div>
+      <div class="ctl"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 7l3.2 3L11 3" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>AI governance</div>
+      <div class="ctl"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 7l3.2 3L11 3" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Model monitoring</div>
+      <div class="ctl"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 7l3.2 3L11 3" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Human oversight</div>
+      <div class="ctl"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 7l3.2 3L11 3" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Auditability</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="outcomes">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Measurable business outcomes</p>
+      <h2>AI should create value you can point at.</h2>
+    </div>
+    <div class="outs">
+      <article class="out"><div class="dir">&uarr;</div><h3>Productivity</h3><p>Teams accomplish more with intelligent software doing the groundwork.</p></article>
+      <article class="out"><div class="dir">&darr;</div><h3>Operational cost</h3><p>Repetitive and manual processes run without constant hand-holding.</p></article>
+      <article class="out"><div class="dir">&uarr;</div><h3>Speed</h3><p>Workflows and decisions move at the pace of the business.</p></article>
+      <article class="out"><div class="dir">&uarr;</div><h3>Customer experience</h3><p>Faster, more personalized service across every channel.</p></article>
+      <article class="out"><div class="dir">&uarr;</div><h3>Revenue opportunities</h3><p>Find openings your data was already pointing to.</p></article>
+      <article class="out"><div class="dir">&uarr;</div><h3>Innovation</h3><p>Ship products and capabilities that were previously impossible.</p></article>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="why">
+  <div class="wrap why-in">
+    <p class="eyebrow" style="margin-bottom:18px">Why now</p>
+    <p class="big">AI is changing how software is built, how employees work, how customers interact with businesses, and how organizations compete.</p>
+    <p class="big">The companies that integrate intelligence into their software and operations will define the next generation of business.</p>
+    <p class="big last">Zeyvio is here to help build that future.</p>
+  </div>
+</section>
+
+<section class="close" id="build">
+  <div class="glow2" aria-hidden="true"></div>
+  <div class="wrap close-in">
+    <div class="three">
+      <span>Your business has data.</span>
+      <span>Your teams have knowledge.</span>
+      <span>Your systems have processes.</span>
+    </div>
+    <h2>We bring intelligence to all three.</h2>
+    <p class="sub">Let's build software that doesn't just execute instructions. Let's build software that understands.</p>
+    <div class="row">
+      <a class="btn btn-solid btn-lg" href="#">Talk to Zeyvio</a>
+      <a class="btn btn-line btn-lg" href="#">Start an AI project</a>
+      <a class="btn btn-line btn-lg" href="#ecosystem">Explore AI solutions</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <div class="f-brand">
+        <a class="mark" href="#top">
+          <svg class="glyph" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 3h14L7 10h10L3 17l10-7H3z" fill="var(--accent)"/></svg>
+          Zeyvio
+        </a>
+        <p class="tagline">Software that thinks. Intelligence that works.</p>
+        <p class="sub">AI Software Intelligence Company</p>
+      </div>
+      <div class="f-col">
+        <h4>Solutions</h4>
+        <a href="#ecosystem">AI applications</a><a href="#ecosystem">AI agents</a><a href="#ecosystem">Enterprise AI</a><a href="#ecosystem">Data intelligence</a><a href="#ecosystem">Intelligent automation</a><a href="#ecosystem">Generative AI</a>
+      </div>
+      <div class="f-col">
+        <h4>Capabilities</h4>
+        <a href="#ecosystem">AI software engineering</a><a href="#ecosystem">AI integration</a><a href="#ecosystem">Voice &amp; conversational AI</a><a href="#ecosystem">Computer vision</a><a href="#approach">Digital engineering</a>
+      </div>
+      <div class="f-col">
+        <h4>Company</h4>
+        <a href="#industries">Industries</a><a href="#approach">Our approach</a><a href="#trust">Responsible AI</a><a href="#build">Contact</a><a href="#build">Start a project</a>
+      </div>
+    </div>
+    <div class="f-bot">
+      <span>&copy; 2026 Zeyvio. All rights reserved.</span>
+      <div class="right"><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* 3D robot — realistic humanoid, black and white, ZEYVIO wordmark on the chest.
+   Drag to rotate. Falls back to the SVG robot if WebGL or three.js is unavailable. */
+(function(){
+  var host = document.getElementById('robot3d');
+  var wrap = host && host.closest('.robot-wrap');
+  if (!host || !wrap || !window.THREE) return;
+
+  var W = host.clientWidth || 320, H = host.clientHeight || 360;
+  if (!W || !H) return;
+
+  var renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
+  } catch (err) { return; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setSize(W, H);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  if (THREE.sRGBEncoding) renderer.outputEncoding = THREE.sRGBEncoding;
+  host.appendChild(renderer.domElement);
+  wrap.classList.add('is3d');
+
+  var scene  = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(31, W / H, 0.1, 100);
+  camera.position.set(0, 2.75, 9.2);
+  camera.lookAt(0, 2.25, 0);
+
+  /* ---- materials: painted white shell, graphite joints, dark glass visor ---- */
+  var shell = new THREE.MeshStandardMaterial({color:0xF3F2EF, roughness:.42, metalness:.16});
+  var shell2= new THREE.MeshStandardMaterial({color:0xE2E2DE, roughness:.5,  metalness:.12});
+  var mid   = new THREE.MeshStandardMaterial({color:0xA9ADA9, roughness:.34, metalness:.42});
+  var dark  = new THREE.MeshStandardMaterial({color:0x1B1E21, roughness:.44, metalness:.3});
+  var glass = new THREE.MeshStandardMaterial({color:0x0D0F11, roughness:.14, metalness:.6});
+  var glow  = new THREE.MeshStandardMaterial({color:0xFFFFFF, emissive:0xFFFFFF, emissiveIntensity:.9, roughness:.2});
+
+  /* ---- lighting: soft studio setup so a white robot still reads on a white page ---- */
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x9aa0a6, .55));
+  var key = new THREE.DirectionalLight(0xffffff, .85);
+  key.position.set(4.5, 8, 5.5);
+  key.castShadow = true;
+  key.shadow.mapSize.set(1024, 1024);
+  key.shadow.camera.left = -5; key.shadow.camera.right = 5;
+  key.shadow.camera.top = 6;   key.shadow.camera.bottom = -1;
+  key.shadow.radius = 3;
+  scene.add(key);
+  var fill = new THREE.DirectionalLight(0xffffff, .32); fill.position.set(-5, 3, 3);  scene.add(fill);
+  var rim  = new THREE.DirectionalLight(0xffffff, .40); rim.position.set(-2, 4, -6);  scene.add(rim);
+
+  // ground shadow only — no visible floor
+  var ground = new THREE.Mesh(new THREE.PlaneGeometry(14, 14), new THREE.ShadowMaterial({opacity:.16}));
+  ground.rotation.x = -Math.PI / 2;
+  ground.receiveShadow = true;
+  scene.add(ground);
+
+  /* ---- geometry helpers ---- */
+  function roundedBox(w, h, d, r, mat){
+    var s = new THREE.Shape();
+    var x = -w/2, y = -h/2;
+    s.moveTo(x + r, y);
+    s.lineTo(x + w - r, y);      s.absarc(x + w - r, y + r, r, -Math.PI/2, 0);
+    s.lineTo(x + w, y + h - r);  s.absarc(x + w - r, y + h - r, r, 0, Math.PI/2);
+    s.lineTo(x + r, y + h);      s.absarc(x + r, y + h - r, r, Math.PI/2, Math.PI);
+    s.lineTo(x, y + r);          s.absarc(x + r, y + r, r, Math.PI, Math.PI*1.5);
+    var bevel = Math.min(.045, d/4);
+    var geo = new THREE.ExtrudeGeometry(s, {
+      depth: Math.max(.02, d - bevel*2), bevelEnabled:true,
+      bevelThickness:bevel, bevelSize:bevel, bevelSegments:2, curveSegments:8
+    });
+    geo.center();
+    var m = new THREE.Mesh(geo, mat);
+    m.castShadow = true;
+    return m;
+  }
+  function cyl(rt, rb, h, mat, seg){
+    var m = new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, seg || 24), mat);
+    m.castShadow = true; return m;
+  }
+  function ball(r, mat){
+    var m = new THREE.Mesh(new THREE.SphereGeometry(r, 26, 20), mat);
+    m.castShadow = true; return m;
+  }
+  function seam(w, h, d, x, y, z, parent){
+    var m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), dark);
+    m.position.set(x, y, z); parent.add(m); return m;
+  }
+
+  var pivot = new THREE.Group();
+  var body  = new THREE.Group();
+  pivot.add(body); scene.add(pivot);
+
+  /* ---- legs and feet: planted, so the robot has weight ---- */
+  function leg(side){
+    var g = new THREE.Group();
+    g.position.x = side * .40;
+    var foot = roundedBox(.40, .18, .62, .07, shell2); foot.position.set(0, .09, .09); g.add(foot);
+    var ankle = ball(.13, mid);   ankle.position.y = .22;  g.add(ankle);
+    var shin  = cyl(.155, .175, .60, shell); shin.position.y = .55; g.add(shin);
+    var knee  = ball(.185, mid);  knee.position.y = .87;   g.add(knee);
+    var thigh = cyl(.20, .185, .60, shell);  thigh.position.y = 1.18; g.add(thigh);
+    seam(.30, .012, .04, 0, .55, .17, g);
+    body.add(g); return g;
+  }
+  leg(-1); leg(1);
+
+  // hips + waist
+  var hips = roundedBox(1.06, .40, .74, .16, shell); hips.position.y = 1.60; body.add(hips);
+  var waist = cyl(.34, .38, .26, dark); waist.position.y = 1.86; body.add(waist);
+
+  /* ---- torso with the ZEYVIO plate ---- */
+  var torso = roundedBox(1.50, 1.36, 1.00, .26, shell); torso.position.y = 2.55; body.add(torso);
+  var collar = roundedBox(1.10, .22, .80, .10, shell2); collar.position.y = 3.24; body.add(collar);
+  seam(1.30, .014, .02, 0, 2.05, .50, body);
+  seam(.014, .70, .02, -.62, 2.60, .48, body);
+  seam(.014, .70, .02,  .62, 2.60, .48, body);
+
+  // dark chest plate the wordmark sits on
+  var plate = roundedBox(1.06, .50, .10, .10, dark);
+  plate.position.set(0, 2.62, .49); body.add(plate);
+
+  // wordmark drawn to a canvas, then mapped onto the plate
+  var cvs = document.createElement('canvas');
+  cvs.width = 640; cvs.height = 260;
+  var tex = new THREE.CanvasTexture(cvs);
+  tex.anisotropy = renderer.capabilities.getMaxAnisotropy ? renderer.capabilities.getMaxAnisotropy() : 1;
+
+  function drawWordmark(){
+    var c = cvs.getContext('2d');
+    c.clearRect(0, 0, cvs.width, cvs.height);
+    c.fillStyle = '#F6F5F1';
+    c.textAlign = 'center';
+    c.textBaseline = 'middle';
+    c.font = '600 132px "Inter Tight", Inter, Helvetica, Arial, sans-serif';
+    c.letterSpacing = '10px';           // ignored by older engines, harmless
+    c.fillText('ZEYVIO', cvs.width/2, cvs.height/2 + 4);
+    tex.needsUpdate = true;
+  }
+  drawWordmark();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawWordmark);
+
+  var label = new THREE.Mesh(
+    new THREE.PlaneGeometry(.92, .375),
+    new THREE.MeshBasicMaterial({map:tex, transparent:true})
+  );
+  label.position.set(0, 2.62, .552); body.add(label);
+
+  // status light below the plate
+  var core = ball(.075, glow); core.position.set(0, 2.16, .50); body.add(core);
+  var coreRing = cyl(.135, .135, .03, mid, 28); coreRing.rotation.x = Math.PI/2;
+  coreRing.position.set(0, 2.16, .49); body.add(coreRing);
+
+  /* ---- head ---- */
+  var neck = cyl(.20, .22, .26, dark); neck.position.y = 3.42; body.add(neck);
+  var head = new THREE.Group(); head.position.y = 3.98; body.add(head);
+
+  var skull = roundedBox(1.34, 1.06, 1.14, .30, shell); head.add(skull);
+  var brow  = roundedBox(1.30, .16, 1.02, .07, shell2); brow.position.set(0, .44, .04); head.add(brow);
+  var visor = roundedBox(1.10, .46, .10, .18, glass);   visor.position.set(0, .02, .56); head.add(visor);
+  var eyeL = ball(.075, glow); eyeL.position.set(-.25, .04, .615); head.add(eyeL);
+  var eyeR = ball(.075, glow); eyeR.position.set( .25, .04, .615); head.add(eyeR);
+  var mouth = roundedBox(.44, .10, .06, .04, mid); mouth.position.set(0, -.34, .55); head.add(mouth);
+
+  // ear pods
+  function pod(side){
+    var g = new THREE.Group();
+    var outer = cyl(.20, .20, .12, shell2, 28); outer.rotation.z = Math.PI/2;
+    var inner = cyl(.11, .11, .15, dark, 24);   inner.rotation.z = Math.PI/2;
+    g.add(outer); g.add(inner);
+    g.position.set(side * .70, -.02, 0);
+    head.add(g);
+  }
+  pod(-1); pod(1);
+
+  // antenna
+  var stalk = cyl(.03, .03, .46, mid, 12); stalk.position.y = .72; head.add(stalk);
+  var tip = ball(.085, glow); tip.position.y = .98; head.add(tip);
+
+  /* ---- arms ---- */
+  function arm(side){
+    var g = new THREE.Group();
+    g.position.set(side * .86, 3.02, 0);
+
+    var shoulder = ball(.28, mid); g.add(shoulder);
+    var pauldron = roundedBox(.34, .46, .72, .14, shell);
+    pauldron.position.set(side * .12, -.06, 0); g.add(pauldron);
+
+    var upper = cyl(.155, .14, .62, shell); upper.position.y = -.52; g.add(upper);
+    var elbow = ball(.155, mid);            elbow.position.y = -.86; g.add(elbow);
+
+    var fore = new THREE.Group(); fore.position.y = -.86; g.add(fore);
+    var forearm = cyl(.14, .125, .58, shell); forearm.position.y = -.32; fore.add(forearm);
+    var wrist = ball(.115, mid);              wrist.position.y = -.62; fore.add(wrist);
+    var palm  = roundedBox(.24, .28, .16, .06, shell2); palm.position.y = -.80; fore.add(palm);
+    var f1 = roundedBox(.06, .17, .07, .025, mid); f1.position.set(-.06, -.98, .02); fore.add(f1);
+    var f2 = roundedBox(.06, .17, .07, .025, mid); f2.position.set( .02, -.99, .02); fore.add(f2);
+    var thumb = roundedBox(.06, .12, .07, .025, mid);
+    thumb.position.set(side * .11, -.90, .03); thumb.rotation.z = side * .5; fore.add(thumb);
+
+    body.add(g);
+    return {root:g, fore:fore};
+  }
+  var armL = arm(-1), armR = arm(1);
+
+  /* ---- interaction ---- */
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var yaw = -0.38, pitch = 0, dragging = false, lastX = 0, lastY = 0, lastInput = 0;
+
+  function down(e){
+    dragging = true; host.classList.add('dragging');
+    var p = e.touches ? e.touches[0] : e;
+    lastX = p.clientX; lastY = p.clientY; lastInput = performance.now();
+  }
+  function move(e){
+    if (!dragging) return;
+    var p = e.touches ? e.touches[0] : e;
+    yaw += (p.clientX - lastX) * 0.009;
+    pitch = Math.max(-.28, Math.min(.28, pitch + (p.clientY - lastY) * 0.0035));
+    lastX = p.clientX; lastY = p.clientY; lastInput = performance.now();
+    if (e.cancelable && e.touches) e.preventDefault();
+  }
+  function up(){ dragging = false; host.classList.remove('dragging'); }
+
+  host.addEventListener('mousedown', down);
+  window.addEventListener('mousemove', move, {passive:true});
+  window.addEventListener('mouseup', up);
+  host.addEventListener('touchstart', down, {passive:true});
+  host.addEventListener('touchmove', move, {passive:false});
+  window.addEventListener('touchend', up);
+
+  var tpx = 0, tpy = 0, px = 0, py = 0;
+  window.addEventListener('mousemove', function(e){
+    if (dragging) return;
+    var r = host.getBoundingClientRect();
+    tpx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width/2)) / (window.innerWidth * .45)));
+    tpy = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height*.3)) / (window.innerHeight * .5)));
+  }, {passive:true});
+
+  var visible = true;
+  if (window.IntersectionObserver){
+    new IntersectionObserver(function(en){ visible = en[0].isIntersecting; }, {threshold:0}).observe(host);
+  }
+  window.addEventListener('resize', function(){
+    var w = host.clientWidth, h = host.clientHeight;
+    if (!w || !h) return;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  });
+
+  if (reduce){
+    pivot.rotation.y = yaw;
+    renderer.render(scene, camera);
+    return;
+  }
+
+  var t0 = performance.now();
+  function tick(now){
+    requestAnimationFrame(tick);
+    if (!visible) return;
+    var t = (now - t0) / 1000;
+
+    if (!dragging && now - lastInput > 2200){
+      yaw += 0.0026;                       // slow idle turn
+      pitch += (0 - pitch) * 0.02;
+    }
+    px += (tpx - px) * .06;
+    py += (tpy - py) * .06;
+
+    pivot.rotation.y = yaw;
+    pivot.rotation.x = pitch;
+
+    // idle: breathing and a small weight shift, feet stay planted
+    body.position.y = Math.sin(t * 1.1) * 0.022;
+    body.rotation.z = Math.sin(t * .62) * 0.008;
+    torso.scale.set(1, 1 + Math.sin(t * 1.1) * 0.006, 1);
+
+    head.rotation.y = px * 0.40;
+    head.rotation.x = py * 0.15 + Math.sin(t * .8) * .01;
+    head.rotation.z = px * 0.05;
+
+    armL.root.rotation.x = Math.sin(t * 1.1) * 0.055;
+    armR.root.rotation.x = -Math.sin(t * 1.1) * 0.055;
+    armL.fore.rotation.x = Math.sin(t * 1.1 + .5) * 0.045;
+    armR.fore.rotation.x = -Math.sin(t * 1.1 + .5) * 0.045;
+
+    var beat = .55 + Math.abs(Math.sin(t * 1.6)) * .75;
+    glow.emissiveIntensity = beat;
+    tip.scale.setScalar(.92 + Math.sin(t * 1.6) * .1);
+
+    var cycle = t % 5.8;
+    var lid = cycle > 5.62 ? .1 : 1;
+    eyeL.scale.y = lid; eyeR.scale.y = lid;
+
+    renderer.render(scene, camera);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+
+<script>
+/* realtime robot — eyes and head follow the pointer, idle drift when it's still */
+(function(){
+  var svg    = document.querySelector('.robot');
+  var head   = document.getElementById('r-head');
+  var pupils = document.getElementById('r-pupils');
+  if (!svg || !head || !pupils) return;
+  if (svg.closest('.robot-wrap').classList.contains('is3d')) return; // 3D took over
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+
+  var tx = 0, ty = 0;      // target, normalised -1..1
+  var cx = 0, cy = 0;      // current, eased toward target
+  var lastMove = 0;
+  var IDLE_AFTER = 2600;   // ms of stillness before it looks around on its own
+
+  function onMove(e){
+    var p = e.touches ? e.touches[0] : e;
+    var r = svg.getBoundingClientRect();
+    if (!r.width) return;
+    var ex = r.left + r.width / 2;
+    var ey = r.top + r.height * 0.30;   // roughly where the eyes sit
+    tx = Math.max(-1, Math.min(1, (p.clientX - ex) / (window.innerWidth * 0.42)));
+    ty = Math.max(-1, Math.min(1, (p.clientY - ey) / (window.innerHeight * 0.45)));
+    lastMove = performance.now();
+  }
+
+  window.addEventListener('mousemove', onMove, {passive:true});
+  window.addEventListener('touchmove', onMove, {passive:true});
+
+  function frame(now){
+    // no pointer for a while: sweep the room slowly instead of freezing
+    if (now - lastMove > IDLE_AFTER){
+      tx = Math.sin(now / 2400) * 0.72;
+      ty = Math.sin(now / 3700) * 0.34;
+    }
+
+    cx += (tx - cx) * 0.075;
+    cy += (ty - cy) * 0.075;
+
+    // pupils travel furthest, head tilts a little, both read as "looking"
+    pupils.setAttribute('transform',
+      'translate(' + (cx * 5.2).toFixed(2) + ',' + (cy * 3.4).toFixed(2) + ')');
+    head.setAttribute('transform',
+      'translate(' + (cx * 6).toFixed(2) + ',' + (cy * 2.4).toFixed(2) + ') ' +
+      'rotate(' + (cx * 3.4).toFixed(2) + ' 150 174)');
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+/* running code background — decorative, built in JS to keep the markup clean */
+(function(){
+  var host = document.getElementById('codebg');
+  if (!host) return;
+
+  var snippets = [
+"async function runAgent(goal) {",
+"  const plan = await reason(goal);",
+"  for (const step of plan) {",
+"    const result = await act(step);",
+"    if (result.needsHuman) await approve(step);",
+"  }",
+"  return summarize(plan);",
+"}",
+"",
+"class Retriever(nn.Module):",
+"    def forward(self, query, docs):",
+"        scores = query @ docs.T / self.temp",
+"        return scores.softmax(dim=-1)",
+"",
+"def embed(chunks: list[str]) -> None:",
+"    vectors = model.encode(chunks)",
+"    index.upsert(vectors, namespace=tenant)",
+"",
+"pipeline:",
+"  - extract: documents",
+"  - classify: intent",
+"  - route: workflow",
+"  - act: erp.create_order()",
+"",
+"SELECT customer_id, churn_score",
+"FROM intelligence.predictions",
+"WHERE confidence > 0.85;",
+"",
+"const layer = zeyvio.connect({",
+"  crm: true, erp: true, warehouse: true,",
+"  policy: 'human-in-the-loop'",
+"});",
+"",
+"model.fit(train, epochs=12)",
+"eval.report(accuracy, latency, drift)",
+"",
+"@agent.tool",
+"def create_ticket(summary: str) -> str:",
+"    return jira.issues.create(summary)",
+""
+  ];
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cols = window.innerWidth < 860 ? 2 : 4;
+
+  function esc(t){
+    return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  var KW = /^(async|await|function|const|let|var|for|of|in|return|class|def|if|else|import|from|new|yield|true|false|null|None|self|select|where|pipeline|model)$/i;
+
+  function highlight(line){
+    // comments swallow the rest of the line
+    var cut = line.search(/#|\/\//);
+    var comment = '';
+    if (cut > -1){ comment = line.slice(cut); line = line.slice(0, cut); }
+
+    // one pass only — a second .replace() would match the spans this one inserts
+    var TOKEN = /("[^"]*"|'[^']*')|\b(\d+\.?\d*)\b|\b([A-Za-z_][A-Za-z0-9_]*)\b/g;
+    var out = esc(line).replace(TOKEN, function(m, str, num, word){
+      if (str) return '<span class="st">' + str + '</span>';
+      if (num) return '<span class="st">' + num + '</span>';
+      if (word && KW.test(word)) return '<span class="kw">' + word + '</span>';
+      return m;
+    });
+
+    if (comment) out += '<span class="cm">' + esc(comment) + '</span>';
+    return out;
+  }
+
+  for (var c = 0; c < cols; c++){
+    var col = document.createElement('div');
+    col.className = 'codecol';
+    var lines = [];
+    var offset = c * 9;
+    for (var i = 0; i < 46; i++){
+      lines.push(highlight(snippets[(i + offset) % snippets.length]));
+    }
+    var body = lines.join('\n');
+    var pre = document.createElement('pre');
+    pre.innerHTML = body + '\n' + body; // duplicated for a seamless loop
+    col.appendChild(pre);
+    if (!reduce){
+      col.style.animationDuration = (46 + c * 11) + 's';
+      col.style.animationDelay = (-c * 7) + 's';
+    }
+    host.appendChild(col);
+  }
+})();
+
+(function(){
+  var track = document.getElementById('loop');
+  if (!track) return;
+  var nodes = track.querySelectorAll('.node');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce){
+    track.classList.add('lit');
+    Array.prototype.forEach.call(nodes, function(n){ n.classList.add('on'); });
+    return;
+  }
+  setTimeout(function(){
+    track.classList.add('lit');
+    Array.prototype.forEach.call(nodes, function(n, i){
+      setTimeout(function(){ n.classList.add('on'); }, i * 290);
+    });
+  }, 500);
+})();
+</script>
+</body>
+</html>
